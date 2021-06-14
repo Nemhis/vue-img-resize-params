@@ -1,0 +1,25 @@
+{
+  "name": "vue-img-resize-params",
+  "version": "1.0.0",
+  "description": "Plugin helps to add resize params like width, height etc. to image url",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Nemhis/vue-img-resize-params.git"
+  },
+  "author": "p.nemphis@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nemhis/vue-img-resize-params/issues"
+  },
+  "homepage": "https://github.com/Nemhis/vue-img-resize-params#readme",
+  "devDependencies": {
+    "rollup": "2.51.2",
+    "vuepress": "1.8.2"
+  },
+  "dependencies": {}
+}
