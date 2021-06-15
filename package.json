@@ -2,8 +2,11 @@
   "name": "vue-img-resize-params",
   "version": "1.0.0",
   "description": "Plugin helps to add resize params like width, height etc. to image url",
-  "main": "index.js",
+  "main": "dist/common.js",
+  "module": "dist/module.js",
   "scripts": {
+    "build": "rollup -c",
+    "dev": "webpack serve --config webpack.config.js --progress --mode development",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
@@ -18,8 +21,20 @@
   },
   "homepage": "https://github.com/Nemhis/vue-img-resize-params#readme",
   "devDependencies": {
+    "@vue/compiler-sfc": "3.1.1",
+    "babel-loader": "8.2.2",
+    "css-loader": "5.2.6",
+    "html-webpack-plugin": "5.3.1",
     "rollup": "2.51.2",
-    "vuepress": "1.8.2"
+    "rollup-plugin-typescript2": "0.30.0",
+    "tslib": "2.3.0",
+    "typescript": "4.3.2",
+    "vue": "3.1.1",
+    "vue-loader": "16.2.0",
+    "vuepress": "1.8.2",
+    "webpack": "5.38.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "3.11.2"
   },
   "dependencies": {}
 }
