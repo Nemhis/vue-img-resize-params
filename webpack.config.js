@@ -5,7 +5,7 @@ const { VueLoaderPlugin } = require("vue-loader");
 module.exports = {
   mode: 'development',
   entry: {
-    index: './examples/main.js',
+    index: './examples/main.ts',
   },
   output: {
     filename: '[name].bundle.js',
@@ -22,8 +22,10 @@ module.exports = {
       // is a simple `export * from '@vue/runtime-dom`. However having this
       // extra re-export somehow causes webpack to always invalidate the module
       // on the first HMR update and causes the page to reload.
-      vue: "@vue/runtime-dom"
-    }
+      "vue": "@vue/runtime-dom",
+    },
+
+    extensions: ['.ts', '.js', '.vue', '.json'],
   },
   module: {
     rules: [
@@ -31,14 +33,13 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader'
       },
-      // this will apply to both plain `.js` files
-      // AND `<script>` blocks in `.vue` files
       {
-        test: /\.js$/,
-        loader: 'babel-loader'
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+        }
       },
-      // this will apply to both plain `.css` files
-      // AND `<style>` blocks in `.vue` files
       {
         test: /\.css$/,
         use: [

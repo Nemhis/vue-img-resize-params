@@ -4,12 +4,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import {defineComponent} from "vue";
+export default defineComponent({
+  setup() {
     return {
-      msg: 'Inner message',
+      msg: 'Test message',
     }
   }
-}
+});
 </script>
