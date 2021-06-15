@@ -4,8 +4,10 @@
   "description": "Plugin helps to add resize params like width, height etc. to image url",
   "main": "dist/common.js",
   "module": "dist/module.js",
+  "typings": "dist/types/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c --compact",
     "dev": "webpack serve --config webpack.config.js --progress --mode development",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
@@ -26,6 +28,7 @@
     "css-loader": "5.2.6",
     "html-webpack-plugin": "5.3.1",
     "rollup": "2.51.2",
+    "rollup-plugin-terser": "7.0.2",
     "rollup-plugin-typescript2": "0.30.0",
     "ts-loader": "9.2.3",
     "tslib": "2.3.0",
