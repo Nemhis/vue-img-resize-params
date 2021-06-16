@@ -29,7 +29,7 @@ export default defineComponent({
     return {
       url: 'https://test.ru/path/to/image?test-query-params=1',
       imgEl,
-      params: { width: 200, height: 300, options: { host: 'new-test.ru', query: { test: 123, } }},
+      params: { width: 200, height: 300, options: { host: 'resizer.loc', port: '80', query: { test: 123, } }},
     }
   }
 });
