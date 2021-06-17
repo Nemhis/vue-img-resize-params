@@ -3,7 +3,7 @@ type Query = Record<string, string | number>;
 interface Options {
   protocol?: string;
   host?: string;
-  port?: string;
+  pathname?: string;
   query?: Query;
 }
 
@@ -41,10 +41,10 @@ const makeUrl = (el: HTMLImageElement, bindings: DirectiveBindings): URL => {
     srcUrl.protocol = globalOptions.protocol;
   }
 
-  if (options?.port) {
-    srcUrl.port = options.port;
-  } else if (globalOptions.port) {
-    srcUrl.port = globalOptions.port;
+  if (options?.pathname) {
+    srcUrl.pathname = options.pathname;
+  } else if (globalOptions.pathname) {
+    srcUrl.pathname = globalOptions.pathname;
   }
 
   if (options?.query) {

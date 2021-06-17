@@ -5,8 +5,8 @@ import VueImgResizeParamsPlugin from '../src/index';
 
 createApp(Global)
   .use(VueImgResizeParamsPlugin, {
-    host: 'resizer.loc',
-    port: '8090',
+    host: 'resizer.loc:8090',
+    pathname: '/resize/',
     protocol: 'http',
     query: { testParam: 1 }
   })
