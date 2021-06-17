@@ -1,5 +1,7 @@
 type Query = Record<string, string | number>;
 
+const IMG_PATH_PARAM = ':img-path';
+
 interface Options {
   protocol?: string;
   host?: string;
@@ -42,9 +44,9 @@ const makeUrl = (el: HTMLImageElement, bindings: DirectiveBindings): URL => {
   }
 
   if (options?.pathname) {
-    srcUrl.pathname = options.pathname;
+    srcUrl.pathname = options.pathname.replace(IMG_PATH_PARAM, srcUrl.pathname);
   } else if (globalOptions.pathname) {
-    srcUrl.pathname = globalOptions.pathname;
+    srcUrl.pathname = globalOptions.pathname.replace(IMG_PATH_PARAM, srcUrl.pathname);
   }
 
   if (options?.query) {

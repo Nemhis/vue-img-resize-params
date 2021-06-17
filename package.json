@@ -1,6 +1,6 @@
 {
   "name": "vue-img-resize-params",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Plugin helps to add resize params like width, height etc. to image url",
   "main": "dist/common.js",
   "module": "dist/module.js",
