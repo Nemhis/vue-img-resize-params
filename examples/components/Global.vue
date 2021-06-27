@@ -12,6 +12,17 @@
     <p>Params: {{ params }}</p>
 
     <img v-img-resize-params="params" :src="url" ref="imgEl" alt="test img">
+
+    <div style="display: flex; flex-direction: column; align-items: flex-start">
+      <label for="url">URL</label>
+      <input v-model="url" id="url" type="text" style="width: 400px">
+
+      <label for="width">Width</label>
+      <input v-model="params.width" id="width" type="number">
+
+      <label for="height">Height</label>
+      <input v-model="params.height" id="height" type="number">
+    </div>
   </div>
 </template>
 
@@ -20,11 +31,13 @@ import {defineComponent, ref} from "vue";
 export default defineComponent({
   setup() {
     const imgEl = ref(null);
+    const url = ref('https://test.ru/path/to/image?test-query-params=1');
+    const params = ref({ width: 200, height: 300, });
 
     return {
-      url: 'https://test.ru/path/to/image?test-query-params=1',
+      url,
       imgEl,
-      params: { width: 200, height: 300, },
+      params,
     }
   }
 });

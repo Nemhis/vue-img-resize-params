@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Local registration</h2>
+    <h2>Global registration</h2>
     <p>
       Base url - {{ url }}
     </p>
@@ -12,6 +12,17 @@
     <p>Params: {{ params }}</p>
 
     <img v-img-resize-params="params" :src="url" ref="imgEl" alt="test img">
+
+    <div style="display: flex; flex-direction: column; align-items: flex-start">
+      <label for="url">URL</label>
+      <input v-model="url" id="url" type="text" style="width: 400px">
+
+      <label for="width">Width</label>
+      <input v-model="params.width" id="width" type="number">
+
+      <label for="height">Height</label>
+      <input v-model="params.height" id="height" type="number">
+    </div>
   </div>
 </template>
 
@@ -19,17 +30,21 @@
 import {defineComponent, ref} from "vue";
 import { directive } from '../../src';
 
+const LOCAL_RESIZER_URL = 'http://local-resizer.loc:8090/resizer:imgPath?:imgQuery&test-param=1&width=:width&height=:height';
+
 export default defineComponent({
   directives: {
     ImgResizeParams: directive
   },
   setup() {
     const imgEl = ref(null);
+    const url = ref('https://test.ru/path/to/image?test-query-params=1');
+    const params = ref({ width: 200, height: 300, options: { url: LOCAL_RESIZER_URL }});
 
     return {
-      url: 'https://test.ru/path/to/image?test-query-params=1',
+      url,
       imgEl,
-      params: { width: 200, height: 300, options: { host: 'resizer.loc:8090', pathname: 'resize:img-path', query: { test: 123, } }},
+      params,
     }
   }
 });

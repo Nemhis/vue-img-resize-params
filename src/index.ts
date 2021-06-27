@@ -1,74 +1,48 @@
-type Query = Record<string, string | number>;
+import {VNode} from "vue";
 
-const IMG_PATH_PARAM = ':img-path';
+enum Params {
+  IMG_PATH = ':imgPath',
+  IMG_QUERY = ':imgQuery',
+  WIDTH = ':width',
+  HEIGHT = ':height',
+}
 
 interface Options {
-  protocol?: string;
-  host?: string;
-  pathname?: string;
-  query?: Query;
+  url?: string;
 }
 
 interface DirectiveBindings {
   width: number;
   height: number;
+  baseUrl: string;
   options?: Options;
 }
 
 let globalOptions: Options = {};
 
-const appendQuery = (searchParams: URLSearchParams, query: Query) => {
-  Object
-    .keys(query)
-    .forEach((item: string) => {
-      if (query) {
-        searchParams.set(item, String(query[item]))
-      }
-    });
-}
-
-const makeUrl = (el: HTMLImageElement, bindings: DirectiveBindings): URL => {
-  const srcUrl = new URL(el.getAttribute('src') || '');
+const makeUrl = (src: string, bindings: DirectiveBindings): string => {
   const { options } = bindings;
+  const optionsUrl = options?.url || globalOptions?.url || '';
 
-  if (options?.host) {
-    srcUrl.host = options.host;
-  } else if (globalOptions.host) {
-    srcUrl.host = globalOptions.host;
+  if (!optionsUrl) {
+    throw new Error('Vue-img-resize-params: base url does not configured');
   }
 
-  if (options?.protocol) {
-    srcUrl.protocol = options.protocol;
-  } else if (globalOptions.protocol) {
-    srcUrl.protocol = globalOptions.protocol;
-  }
+  const srcUrl = new URL(src);
 
-  if (options?.pathname) {
-    srcUrl.pathname = options.pathname.replace(IMG_PATH_PARAM, srcUrl.pathname);
-  } else if (globalOptions.pathname) {
-    srcUrl.pathname = globalOptions.pathname.replace(IMG_PATH_PARAM, srcUrl.pathname);
-  }
-
-  if (options?.query) {
-    appendQuery(srcUrl.searchParams, options.query);
-  }
-
-  if (globalOptions.query) {
-    appendQuery(srcUrl.searchParams, globalOptions.query);
-  }
-
-  srcUrl.searchParams.set('height', String(bindings.height));
-  srcUrl.searchParams.set('width', String(bindings.width));
-
-  return srcUrl;
+  return optionsUrl
+      .replace(Params.IMG_PATH, srcUrl.pathname)
+      .replace(Params.IMG_QUERY, srcUrl.search.slice(1))
+      .replace(Params.WIDTH, String(bindings.width))
+      .replace(Params.HEIGHT, String(bindings.height));
 }
 
 const directive = {
   mounted(el: HTMLImageElement, { value }: { value: DirectiveBindings }) {
-    el.setAttribute('src', makeUrl(el, value).href)
+    el.setAttribute('src', makeUrl(el.getAttribute('src') || '', value))
   },
-  updated(el: HTMLImageElement, { value }: { value: DirectiveBindings; }) {
-    const url = makeUrl(el, value).href;
+  updated(el: HTMLImageElement, { value }: { value: DirectiveBindings; }, vm: VNode) {
+    const url = makeUrl(vm.props?.src || '', value);
 
     if (url !== el.getAttribute('src')) {
       el.setAttribute('src', url)
