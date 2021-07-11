@@ -7,6 +7,16 @@ enum Params {
   HEIGHT = ':height',
 }
 
+enum AttrName {
+  SRC = 'src',
+  SRCSET = 'srcset',
+}
+
+enum Tag {
+  IMG = 'IMG',
+  SOURCE = 'SOURCE',
+}
+
 interface Options {
   url?: string;
 }
@@ -25,7 +35,7 @@ const makeUrl = (src: string, bindings: DirectiveBindings): string => {
   const optionsUrl = options?.url || globalOptions?.url || '';
 
   if (!optionsUrl) {
-    throw new Error('Vue-img-resize-params: base url does not configured');
+    throw new Error('Vue-img-resize-params: base url didn`t configure');
   }
 
   const srcUrl = new URL(src);
@@ -37,15 +47,36 @@ const makeUrl = (src: string, bindings: DirectiveBindings): string => {
       .replace(Params.HEIGHT, String(bindings.height));
 }
 
+const getAttrName = (el: HTMLElement): AttrName | undefined => {
+  switch (el.tagName) {
+    case Tag.IMG:
+      return AttrName.SRC;
+    case Tag.SOURCE:
+      return AttrName.SRCSET;
+  }
+}
+
 const directive = {
   mounted(el: HTMLImageElement, { value }: { value: DirectiveBindings }) {
-    el.setAttribute('src', makeUrl(el.getAttribute('src') || '', value))
+    const attrName = getAttrName(el);
+
+    if (!attrName) {
+      return;
+    }
+
+    el.setAttribute(attrName, makeUrl(el.getAttribute(attrName) || '', value))
   },
   updated(el: HTMLImageElement, { value }: { value: DirectiveBindings; }, vm: VNode) {
-    const url = makeUrl(vm.props?.src || '', value);
+    const attrName = getAttrName(el);
 
-    if (url !== el.getAttribute('src')) {
-      el.setAttribute('src', url)
+    if (!attrName) {
+      return;
+    }
+
+    const url = makeUrl(vm.props ? vm.props[attrName] : '', value);
+
+    if (url !== el.getAttribute(attrName)) {
+      el.setAttribute(attrName, url)
     }
   }
 };
