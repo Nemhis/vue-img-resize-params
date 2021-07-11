@@ -41,7 +41,7 @@ export default defineComponent({
   setup() {
     const imgEl = ref(null);
     const sourceEl = ref(null);
-    const url = ref('https://test.ru/path/to/image?img=1');
+    const url = ref('/path/to/image?img=1');
     const sourceUrl = ref('https://test.ru/path/to/image?source=1');
     const params = ref({ width: 200, height: 300, });
 

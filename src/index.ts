@@ -38,7 +38,7 @@ const makeUrl = (src: string, bindings: DirectiveBindings): string => {
     throw new Error('Vue-img-resize-params: base url didn`t configure');
   }
 
-  const srcUrl = new URL(src);
+  const srcUrl = new URL(src, new URL(optionsUrl));
 
   return optionsUrl
       .replace(Params.IMG_PATH, srcUrl.pathname)
