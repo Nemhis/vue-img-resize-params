@@ -9,8 +9,12 @@
       Modified url - {{ imgEl.getAttribute('src') }}
     </p>
 
-    <p v-if="sourceEl">
+    <p v-if="pictureImgEl">
       Modified source url - {{ sourceEl.getAttribute('srcset') }}
+    </p>
+
+    <p v-if="pictureImgEl">
+      Modified source url - {{ pictureImgEl.getAttribute('srcset') }}
     </p>
 
     <p>Params: {{ params }}</p>
@@ -19,7 +23,7 @@
 
     <picture>
       <source v-img-resize-params="params" ref="sourceEl" :srcset="sourceUrl" media="(min-width: 600px)">
-      <img v-img-resize-params="params" :src="url" ref="imgEl" alt="test img">
+      <img v-img-resize-params="params" :src="url" ref="pictureImgEl" alt="test img">
     </picture>
 
     <div style="display: flex; flex-direction: column; align-items: flex-start">
@@ -41,6 +45,7 @@ export default defineComponent({
   setup() {
     const imgEl = ref(null);
     const sourceEl = ref(null);
+    const pictureImgEl = ref(null);
     const url = ref('/path/to/image?img=1');
     const sourceUrl = ref('https://test.ru/path/to/image?source=1');
     const params = ref({ width: 200, height: 300, });
@@ -48,6 +53,7 @@ export default defineComponent({
     return {
       url,
       sourceUrl,
+      pictureImgEl,
       sourceEl,
       imgEl,
       params,

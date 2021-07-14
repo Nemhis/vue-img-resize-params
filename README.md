@@ -3,6 +3,8 @@
 ## Overview
 
 Plugin helps to add resize params like width, height etc. to image url. Compatible with Vue 3.x.
+NOTE:
+Plugin doesn't resize image. Plugin only helps to format url to resize server with comfortable way.
 
 ## Requirements
 
@@ -48,7 +50,7 @@ createApp(Global)
 <img src="http://resizer.loc:8090/resizer/path/to/img?test-param=1&width=300&height=300" alt="Img description">
 ```
 
-##Picture tag support
+## Picture tag support
 ```vue
 <template>
   <picture>
@@ -66,7 +68,7 @@ createApp(Global)
 </picture>
 ```
 
-##Replace params
+## Replace params
 
 | Param         | Description           |
 | ------------- |:---------------------:|
